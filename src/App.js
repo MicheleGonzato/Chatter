@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Message from './Components/Message';
+import { UsersArray } from './Utils/Constants';
 
 function App() {
+  const messages = [{user: UsersArray[0], message: 'Hello There!'}, {user: UsersArray[1], message: 'I like Apples!'}, {user: UsersArray[2], message: 'Hi! Me Too!'}]
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <h2>Chatter!</h2>
+      {
+        messages.map( (msg, i) => { return <Message userInput={msg.user} messageInput={msg.message} key={i}></Message>} )
+      }
+      <input></input>
+      <button>Send</button>
     </div>
   );
 }
