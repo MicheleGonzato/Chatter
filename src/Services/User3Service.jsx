@@ -12,7 +12,7 @@ const User3Service = {
     },
 
     prepareMessage: (inputMsg) => {
-        return {user: UsersArray[2], message: inputMsg};
+        return {user: UsersArray.USER3, message: inputMsg};
     }
 
 };

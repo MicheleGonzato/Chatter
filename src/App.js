@@ -5,9 +5,18 @@ import { UsersArray } from './Utils/Constants';
 import User3Service from './Services/User3Service';
 
 function App() {
-  const initialMessages = [{user: UsersArray[0], message: 'Hello There!'}, {user: UsersArray[1], message: 'I like Apples!'}, {user: UsersArray[2], message: 'Hi! Me Too!'}]
+  const initialMessages = [{user: UsersArray.USER1, message: 'Hello There!'}, {user: UsersArray.USER2, message: 'I like Apples!'}, {user: UsersArray.USER3, message: 'Hi! Me Too!'}]
 
   const [messages, setMessages] = useState(initialMessages);
+  const [inputForm, setInputForm] = useState('');
+
+  function insertNewMessage(e) {
+    if(inputForm) {
+      setMessages( state => [...state, {user: UsersArray.USER1, message: inputForm}]);
+      setInputForm('');
+    }
+    e.preventDefault();
+  }
 
   useEffect(() => {
       setInterval(() => {
@@ -25,8 +34,10 @@ function App() {
         messages?.map( (msg, i) => {
           return <Message userInput={msg.user} messageInput={msg.message} key={i}></Message>} )
       }
-      <input></input>
-      <button>Send</button>
+      <form onSubmit={e => insertNewMessage(e)}>
+        <input type='text' value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here'></input>
+        <input type="submit" value="Enter" />
+      </form>
     </div>
   );
 }
