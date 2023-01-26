@@ -2,3 +2,7 @@
   border: 1px solid black;
   margin: 0.2em;
 }
+
+.message.User1 {
+  cursor: pointer;
+}

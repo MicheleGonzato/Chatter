@@ -17,6 +17,12 @@ function App() {
     }
     e.preventDefault();
   }
+    
+    const deleteMessage = (index, user) => {
+      if(user === UsersArray.USER1) {
+        setMessages( [...messages.slice(0, index), ...messages.slice(index+1)] )
+      }
+  }
 
   useEffect(() => {
       setInterval(() => {
@@ -32,7 +38,7 @@ function App() {
     <h2>Chatter!</h2>
       {
         messages?.map( (msg, i) => {
-          return <Message userInput={msg.user} messageInput={msg.message} key={i}></Message>} )
+          return <Message userInput={msg.user} messageInput={msg.message} key={i} listId={i} sendingData={deleteMessage}></Message>} )
       }
       <form onSubmit={e => insertNewMessage(e)}>
         <input type='text' value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here'></input>

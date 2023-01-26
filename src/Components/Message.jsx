@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export function Message({userInput, messageInput}) {
+export function Message({userInput, messageInput, listId, sendingData}) {
 
   const [date, setDate] = useState(0);
 
@@ -10,7 +10,7 @@ export function Message({userInput, messageInput}) {
   }, []);
 
     return ( 
-      <div className="message">
+      <div className={`message ${userInput}`} onClick={() => sendingData(listId, userInput)}>
         <div className="header">
           <p>{userInput}</p>
         </div>
