@@ -9,11 +9,17 @@ function App() {
 
   const [messages, setMessages] = useState(initialMessages);
   const [inputForm, setInputForm] = useState('');
+  const [inputError, setInputError] = useState(false);
 
   function insertNewMessage(e) {
     if(inputForm) {
       setMessages( state => [...state, {user: UsersArray.USER1, message: inputForm}]);
       setInputForm('');
+    } else {
+      setInputError(true);
+      setTimeout(() => {
+        setInputError(false);
+      }, 3000)
     }
     e.preventDefault();
   }
@@ -41,6 +47,7 @@ function App() {
           return <Message userInput={msg.user} messageInput={msg.message} key={i} listId={i} sendingData={deleteMessage}></Message>} )
       }
       <form onSubmit={e => insertNewMessage(e)}>
+      <label className={`msg-label ${!inputError ? 'hide' : ''}`}>Your message can not be empty!</label>
         <input type='text' value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here'></input>
         <input type="submit" value="Enter" />
       </form>

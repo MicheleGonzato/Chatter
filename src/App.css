@@ -6,3 +6,11 @@
 .message.User1 {
   cursor: pointer;
 }
+
+label.msg-label {
+  color: red;
+}
+
+.hide {
+  display: none;
+}
