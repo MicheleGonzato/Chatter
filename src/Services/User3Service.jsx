@@ -3,6 +3,10 @@ import HumorApiService from "./HumorApiService";
 
 const User3Service = {
 
+    requireInsult: (name) => {
+        return HumorApiService.randomInsult(name);
+    },
+
     requireMessage: () => {
         return HumorApiService.randomJoke();
     },

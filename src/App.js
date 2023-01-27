@@ -32,9 +32,13 @@ function App() {
 
   useEffect(() => {
       setInterval(() => {
-        User3Service.requireMessage().then( res => {
+        User3Service.requireInsult(UsersArray.USER1).then( res => {
+          // cat api
           // setMessages( state => [...state, User3Service.prepareMessage(res.data.fact)])
-          setMessages( state => [...state, User3Service.prepareMessage(res.data.joke)])
+          // random joke api
+          // setMessages( state => [...state, User3Service.prepareMessage(res.data.joke)])
+          // insult api
+          setMessages( state => [...state, User3Service.prepareMessage(res.data.text)])
         }).catch(err => console.error('[Axios Error]: ', err));
       }, '5000');
     }, []);
