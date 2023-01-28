@@ -12,6 +12,7 @@ function App() {
   const [inputError, setInputError] = useState(false);
 
   function insertNewMessage(e) {
+    e.preventDefault();
     if(inputForm) {
       setMessages( state => [...state, {user: UsersArray.USER1, message: inputForm}]);
       setInputForm('');
@@ -19,9 +20,8 @@ function App() {
       setInputError(true);
       setTimeout(() => {
         setInputError(false);
-      }, 3000)
+      }, 5000)
     }
-    e.preventDefault();
   }
     
     const deleteMessage = (index, user) => {
@@ -32,29 +32,37 @@ function App() {
 
   useEffect(() => {
       setInterval(() => {
-        User3Service.requireInsult(UsersArray.USER1).then( res => {
+        // User3Service.requireInsult(UsersArray.USER1).then( res => {
           // cat api
           // setMessages( state => [...state, User3Service.prepareMessage(res.data.fact)])
           // random joke api
           // setMessages( state => [...state, User3Service.prepareMessage(res.data.joke)])
           // insult api
-          setMessages( state => [...state, User3Service.prepareMessage(res.data.text)])
-        }).catch(err => console.error('[Axios Error]: ', err));
+        //   setMessages( state => [...state, User3Service.prepareMessage(res.data.text)])
+        // }).catch(err => console.error('[Axios Error]: ', err));
       }, '5000');
     }, []);
 
   return (
-    <div className="App">
-    <h2>Chatter!</h2>
-      {
-        messages?.map( (msg, i) => {
-          return <Message userInput={msg.user} messageInput={msg.message} key={i} listId={i} sendingData={deleteMessage}></Message>} )
-      }
-      <form onSubmit={e => insertNewMessage(e)}>
-      <label className={`msg-label ${!inputError ? 'hide' : ''}`}>Your message can not be empty!</label>
-        <input type='text' value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here'></input>
-        <input type="submit" value="Enter" />
+    <div className='d-flex flex-column app px-3'>
+
+      <img className='fixed-top border border-dark rounded my-2 mx-auto d-block' src={require('./logochatt.png')}></img>
+    
+      <div className='flex-1 messages-box'>
+        {
+          messages?.map( (msg, i) => {
+            return <Message userInput={msg.user} messageInput={msg.message} id={i} key={i} listId={i} sendingData={deleteMessage}></Message>} )
+        }
+      </div>
+
+      <form className='mt-auto input-footer' onSubmit={e => insertNewMessage(e)}>
+        <small className={`text-danger bg-light form-text p-1 mt-2 ${!inputError ? 'hide' : ''}`}>Your message can not be empty!</small>
+        <div className='d-flex'>
+          <input type='text' value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here' className='form-control my-auto txt-input'></input>
+          <input type='submit' className='btn btn-success m-1 pl-2' value='Enter' />
+        </div>
       </form>
+
     </div>
   );
 }

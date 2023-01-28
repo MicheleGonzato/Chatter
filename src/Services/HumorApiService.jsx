@@ -8,7 +8,7 @@ const HumorApiService = {
       },
 
       randomInsult: ( name ) => {
-        return axios.get(`https://api.humorapi.com/insult?name=${name}&reason=${getRandomInsultReason()}&api-key=${humorapiKeys[1]}`);
+        return axios.get(`https://api.humorapi.com/insult?name=${name}&reason=${getRandomInsultReason()}&api-key=${humorapiKeys[0]}`);
       },
       
       // alternative api (it gets cat facts)    
