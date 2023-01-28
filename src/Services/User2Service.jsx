@@ -1,10 +1,10 @@
 import { UsersArray } from "../Utils/Constants";
 import HumorApiService from "./HumorApiService";
 
-const User3Service = {
+const User2Service = {
 
-    requireInsult: (name) => {
-        return HumorApiService.randomInsult(name);
+    requireMessage: () => {
+        return HumorApiService.randomJoke();
     },
     
     requireCatMessage: () => {
@@ -17,4 +17,4 @@ const User3Service = {
 
 };
 
-export default User3Service;
+export default User2Service;

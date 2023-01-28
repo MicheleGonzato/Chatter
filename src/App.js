@@ -3,19 +3,32 @@ import './App.css';
 import Message from './Components/Message';
 import { UsersArray } from './Utils/Constants';
 import User3Service from './Services/User3Service';
+import User2Service from './Services/User2Service';
 
 function App() {
   const initialMessages = [{user: UsersArray.USER1, message: 'Hello There!'}, {user: UsersArray.USER2, message: 'I like Apples!'}, {user: UsersArray.USER3, message: 'Hi! Me Too!'}]
-
+  
   const [messages, setMessages] = useState(initialMessages);
   const [inputForm, setInputForm] = useState('');
   const [inputError, setInputError] = useState(false);
+  
+  const User2Respond = () => {
+    setTimeout(() => {
+      User2Service.requireCatMessage().then( res => {
+        // random joke api
+        // setMessages( state => [...state, User2Service.prepareMessage(res.data.joke)])
+        // cat api
+        setMessages( state => [...state, User2Service.prepareMessage(res.data.fact)]);
+      }).catch(err => console.error('[Axios Error]: ', err));
+    }, '1000')
+  }
 
-  function insertNewMessage(e) {
+  const insertNewMessage = (e) => {
     e.preventDefault();
     if(inputForm) {
       setMessages( state => [...state, {user: UsersArray.USER1, message: inputForm}]);
       setInputForm('');
+      User2Respond();
     } else {
       setInputError(true);
       setTimeout(() => {
@@ -35,8 +48,6 @@ function App() {
         // User3Service.requireInsult(UsersArray.USER1).then( res => {
           // cat api
           // setMessages( state => [...state, User3Service.prepareMessage(res.data.fact)])
-          // random joke api
-          // setMessages( state => [...state, User3Service.prepareMessage(res.data.joke)])
           // insult api
         //   setMessages( state => [...state, User3Service.prepareMessage(res.data.text)])
         // }).catch(err => console.error('[Axios Error]: ', err));
