@@ -1,4 +1,4 @@
-import { UsersArray } from "../Utils/Constants";
+import { usersArray } from "../Utils/Constants";
 import HumorApiService from "./HumorApiService";
 
 const User3Service = {
@@ -12,7 +12,7 @@ const User3Service = {
     },
 
     prepareMessage: (inputMsg) => {
-        return {user: UsersArray.USER3, message: inputMsg};
+        return {user: usersArray.USER3, message: inputMsg};
     }
 
 };

@@ -1,4 +1,4 @@
-export const UsersArray = { USER1: "User1",
+export const usersArray = { USER1: "User1",
                             USER2: "User2",
                             USER3: "User3"};
 
@@ -18,3 +18,5 @@ export const humorInsultReasons = ['you didn\'t fix the bug',
                                 'you wrote your name wrong',
                                 'you forgot about my birthday',
                                 'you forgot the TV on'];
+
+export const humorApiExpiredError = 'Request failed with status code 402';

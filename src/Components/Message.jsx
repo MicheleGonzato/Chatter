@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { UsersArray } from "../Utils/Constants";
+import { usersArray } from "../Utils/Constants";
 
 export function Message({userInput, messageInput, listId, sendingData}) {
 
@@ -13,11 +13,11 @@ export function Message({userInput, messageInput, listId, sendingData}) {
   
   const userColor = () => {
     switch(userInput) {
-      case UsersArray.USER1:
+      case usersArray.USER1:
         return 'text-success';
-      case UsersArray.USER2:
+      case usersArray.USER2:
         return 'text-primary';
-      case UsersArray.USER3:
+      case usersArray.USER3:
         return 'text-danger';
       default:
         return 'text-warning';
@@ -45,7 +45,7 @@ export function Message({userInput, messageInput, listId, sendingData}) {
           </div>
         </div>
         {
-          userInput === UsersArray.USER1 ?
+          userInput === usersArray.USER1 ?
         <div className='pt-2' >
           <button type='button' className={`btn btn-danger border border-dark rounded-circle ${isMouseHover ? 'visible' : 'invisible'}`} 
             onClick={() => sendingData(listId, userInput)}>X</button>
