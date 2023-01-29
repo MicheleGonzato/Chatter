@@ -1,33 +1,38 @@
 import React , { useState, useEffect, useRef }from 'react';
 import './App.css';
 import Message from './Components/Message';
-import { usersArray } from './Utils/Constants';
+import HumorApiService from './Services/HumorApiService';
 import User3Service from './Services/User3Service';
 import User2Service from './Services/User2Service';
+import { usersArray } from './Utils/Constants';
+import { useSelector } from 'react-redux';
+import { addMessage, deleteMessage } from './Store/Actions/Messages.action';
+import { useDispatch } from "react-redux";
 
 function App() {
-  const initialMessages = [{user: usersArray.USER1, message: 'Hello There!'}, {user: usersArray.USER2, message: 'I like Apples!'}, {user: usersArray.USER3, message: 'Hi! Me Too!'}]
   
-  const [messages, setMessages] = useState(initialMessages);
   const [inputForm, setInputForm] = useState('');
   const [inputError, setInputError] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const storeMessages = useSelector((state) => state.messages);
+  const dispatch = useDispatch();
+
   const User2Respond = () => {
     setTimeout(() => {
-      User2Service.requireCatMessage().then( res => {
-        // random joke api
-        // setMessages( state => [...state, User2Service.prepareMessage(res.data.joke)])
-        // cat api
-        setMessages( state => [...state, User2Service.prepareMessage(res.data.fact)]);
-      }).catch(err => console.error('[Axios Error]: ', err));
+      User2Service.requireMessage().then( res => {
+        dispatch(addMessage(usersArray.USER2, res.data.joke))
+      }).catch(err => {
+        console.error('[Axios]: ', err)
+        callCatApi(usersArray.USER2);
+      });
     }, '1000')
   }
 
   const insertNewMessage = (e) => {
     e.preventDefault();
     if(inputForm) {
-      setMessages( state => [...state, {user: usersArray.USER1, message: inputForm}]);
+      dispatch(addMessage(usersArray.USER1, inputForm));
       setInputForm('');
       User2Respond();
     } else {
@@ -38,36 +43,42 @@ function App() {
     }
   }
   
-  const deleteMessage = (index, user) => {
+  const deleteMessageByIndex = (index, user) => {
     if(user === usersArray.USER1) {
-      setMessages( [...messages.slice(0, index), ...messages.slice(index+1)] )
+      dispatch(deleteMessage(index))
     }
+  }
+
+  const callCatApi = (user) => {
+    HumorApiService.randomCat().then( 
+      res => dispatch(addMessage(user, res.data.fact) ))
+    .catch(err => console.log('[Axios]:cat', err));
   }
   
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView();
-  }, [messages])
+  }, [storeMessages])
 
   useEffect(() => {
       setInterval(() => {
-        // User3Service.requireInsult(usersArray.USER1).then( res => {
-          // cat api
-          // setMessages( state => [...state, User3Service.prepareMessage(res.data.fact)])
-          // insult api
-        //   setMessages( state => [...state, User3Service.prepareMessage(res.data.text)])
-        // }).catch(err => console.error('[Axios Error]: ', err));
+        User3Service.requireInsult().then( res => {
+          dispatch(addMessage(usersArray.USER3, res.data.text))
+        }).catch(err => {
+          console.error('[Axios]: ', err);
+          callCatApi(usersArray.USER3);
+        });
       }, '5000');
     }, []);
 
   return (
     <div className='d-flex flex-column app px-3'>
 
-      <img className='border border-dark rounded my-2 mx-auto d-block' src={require('./logochatt.png')}></img>
+      <img className='border border-dark rounded my-2 mx-auto d-block' alt='Chatter logo' src={require('./logochatt.png')}></img>
     
       <div className='flex-1 messages-box'>
         {
-          messages?.map( (msg, i) => {
-            return <Message userInput={msg.user} messageInput={msg.message} id={i} key={i} listId={i} sendingData={deleteMessage}></Message>} )
+          storeMessages?.messages.map( (msg, i) => {
+            return <Message userInput={msg.user} messageInput={msg.message} time={msg.time} id={i} key={i} listId={i} sendingData={deleteMessageByIndex}></Message>} )
         }
       <div ref={messagesEndRef}></div>
       </div>

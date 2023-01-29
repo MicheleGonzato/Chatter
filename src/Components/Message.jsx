@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { usersArray } from "../Utils/Constants";
 
-export function Message({userInput, messageInput, listId, sendingData}) {
+export function Message({userInput, messageInput, time, listId, sendingData}) {
 
-  const [date, setDate] = useState(0);
   const [isMouseHover, setIsMouseHover] = useState(false);
-
-  useEffect(() => {
-    const currentDate = new Date()
-    setDate(currentDate.getHours() + ':' + String(+currentDate.getMinutes()).padStart(2, '0'));
-  }, []);
   
   const userColor = () => {
     switch(userInput) {
@@ -41,7 +35,7 @@ export function Message({userInput, messageInput, listId, sendingData}) {
             <p className='m-0'>{isMouseHover}</p>
           </div>
           <div className='footer'>
-            <p className='small text-muted m-0'>{date}</p> 
+            <p className='small text-muted m-0'>{time}</p> 
           </div>
         </div>
         {

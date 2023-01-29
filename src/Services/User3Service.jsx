@@ -3,17 +3,9 @@ import HumorApiService from "./HumorApiService";
 
 const User3Service = {
 
-    requireInsult: (name) => {
-        return HumorApiService.randomInsult(name);
+    requireInsult: () => {
+        return HumorApiService.randomInsult(usersArray.USER1);
     },
-    
-    requireCatMessage: () => {
-        return HumorApiService.randomCat();
-    },
-
-    prepareMessage: (inputMsg) => {
-        return {user: usersArray.USER3, message: inputMsg};
-    }
 
 };
 
