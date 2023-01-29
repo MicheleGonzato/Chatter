@@ -1,4 +1,4 @@
-import React , { useState, useEffect }from 'react';
+import React , { useState, useEffect, useRef }from 'react';
 import './App.css';
 import Message from './Components/Message';
 import { usersArray } from './Utils/Constants';
@@ -11,6 +11,7 @@ function App() {
   const [messages, setMessages] = useState(initialMessages);
   const [inputForm, setInputForm] = useState('');
   const [inputError, setInputError] = useState(false);
+  const messagesEndRef = useRef(null);
 
   const User2Respond = () => {
     setTimeout(() => {
@@ -33,15 +34,19 @@ function App() {
       setInputError(true);
       setTimeout(() => {
         setInputError(false);
-      }, 5000)
+      }, 3000)
     }
   }
-    
-    const deleteMessage = (index, user) => {
-      if(user === usersArray.USER1) {
-        setMessages( [...messages.slice(0, index), ...messages.slice(index+1)] )
-      }
+  
+  const deleteMessage = (index, user) => {
+    if(user === usersArray.USER1) {
+      setMessages( [...messages.slice(0, index), ...messages.slice(index+1)] )
+    }
   }
+  
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView();
+  }, [messages])
 
   useEffect(() => {
       setInterval(() => {
@@ -57,19 +62,20 @@ function App() {
   return (
     <div className='d-flex flex-column app px-3'>
 
-      <img className='fixed-top border border-dark rounded my-2 mx-auto d-block' src={require('./logochatt.png')}></img>
+      <img className='border border-dark rounded my-2 mx-auto d-block' src={require('./logochatt.png')}></img>
     
       <div className='flex-1 messages-box'>
         {
           messages?.map( (msg, i) => {
             return <Message userInput={msg.user} messageInput={msg.message} id={i} key={i} listId={i} sendingData={deleteMessage}></Message>} )
         }
+      <div ref={messagesEndRef}></div>
       </div>
 
       <form className='mt-auto input-footer' onSubmit={e => insertNewMessage(e)}>
-        <small className={`text-danger bg-light form-text p-1 mt-2 ${!inputError ? 'hide' : ''}`}>Your message can not be empty!</small>
+        <small className={`fixed-bottom text-light bg-danger form-text py-1 px-4 mb-5 ${!inputError ? 'hide' : ''}`}>Your message can not be empty!</small>
         <div className='d-flex'>
-          <input type='text' value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here' className='form-control my-auto txt-input'></input>
+          <input type='text' autoFocus value={inputForm} onChange={e => setInputForm(e.target.value)} placeholder='Enter your message here' className={`${inputError ? 'border border-danger' : ''} form-control my-auto txt-input`}></input>
           <input type='submit' className='btn btn-success m-1 pl-2' value='Enter' />
         </div>
       </form>

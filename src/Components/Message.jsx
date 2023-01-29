@@ -25,7 +25,7 @@ export function Message({userInput, messageInput, listId, sendingData}) {
   }
 
     return ( 
-      <div className={`d-flex message rounded border border-dark bg-light px-2 my-1 ${userInput}`} 
+      <div className={`d-flex message rounded border border-dark bg-light px-2 my-1 ${userInput === usersArray.USER1 ? 'ms-auto' : ''}`} 
         onMouseEnter={() => {
           setIsMouseHover(true);
           }}
@@ -47,8 +47,9 @@ export function Message({userInput, messageInput, listId, sendingData}) {
         {
           userInput === usersArray.USER1 ?
         <div className='pt-2' >
-          <button type='button' className={`btn btn-danger border border-dark rounded-circle ${isMouseHover ? 'visible' : 'invisible'}`} 
-            onClick={() => sendingData(listId, userInput)}>X</button>
+          <button type="button" className={`btn btn-danger rounded-circle ${isMouseHover ? 'visible' : 'invisible'}`} aria-label="Close" onClick={() => sendingData(listId, userInput)}>
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div> : ''
         }
 

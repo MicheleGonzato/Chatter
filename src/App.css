@@ -2,8 +2,18 @@
   background-image: url("background-small.png");
   background-repeat: repeat;
   background-attachment:fixed;
-  padding-top: 120px;
+  /* padding-top: 120px; */
   min-height: 100vh;
+}
+
+.logo-img {
+  background-color: blue;
+}
+
+.messages-box {
+  overflow: scroll;
+  height: calc(100vh - 122px - 46px);
+  /* border: 1px solid black; */
 }
 
 .message {
