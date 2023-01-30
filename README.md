@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Getting Started with Chatter!
+
+Chatter allows you to chat with two bots, one answer you with funny jokes while the other may insult you.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Developed by Gonzato Michele
+
+## How to run the project
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm i`
+
+For installing the dependencies
+
+### `npm run start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Using the API key
 
-### `npm test`
+The project has 4 API keys and each one can only be used for 10 API calls per day.
+User2 and User3 always use different keys.
+After the key of a user expires, that user will start to call an alternative cat api.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can change the apiKeyIndex variable in /src/Services/HumorApiService.jsx from 0 to 1 to use the last two api keys and get 10 more API calls per user.
 
-### `npm run build`
+## Additional dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`Axios` was used for the API calls. [Source](https://www.npmjs.com/package/axios)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`Humor API` was used to get jokes and insults. [Source](https://humorapi.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`Cat Facts API` was used as an alternative api to get cat facts. [Source](https://catfact.ninja/)
 
-### `npm run eject`
+`Bootstrap` was used for the style. [Source](https://getbootstrap.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`Redux` was used for the store. [Source](https://redux.js.org/)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+`Redux-Persist` was used for the persistance of the data. [Source](https://www.npmjs.com/package/redux-persist)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
