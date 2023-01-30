@@ -19,7 +19,6 @@ const apiKeyIndex = 0;
 
 const validateKey = (indexKey) => {
   if (indexKey >= 0 && indexKey < 4) {
-    console.log('>>>', indexKey)
     return indexKey;
   } else {
     console.error('Invalid apiKeyIndex, it should be 0 or 1');
