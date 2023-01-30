@@ -6,7 +6,7 @@ import User3Service from './Services/User3Service';
 import User2Service from './Services/User2Service';
 import { usersArray } from './Utils/Constants';
 import { useSelector } from 'react-redux';
-import { addMessage, deleteMessage } from './Store/Actions/Messages.action';
+import { addMessage, deleteMessage, reset } from './Store/Actions/Messages.action';
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
       User2Service.requireMessage().then( res => {
         dispatch(addMessage(usersArray.USER2, res.data.joke))
       }).catch(err => {
-        console.error('[Axios]: ', err)
+        console.error('[Axios]:JokeAPI ', err)
         callCatApi(usersArray.USER2);
       });
     }, '1000')
@@ -33,6 +33,10 @@ function App() {
     e.preventDefault();
     if(inputForm) {
       dispatch(addMessage(usersArray.USER1, inputForm));
+      if(inputForm === 'reset') {
+        console.log('!!', inputForm)
+        dispatch(reset());
+      } 
       setInputForm('');
       User2Respond();
     } else {
@@ -52,7 +56,7 @@ function App() {
   const callCatApi = (user) => {
     HumorApiService.randomCat().then( 
       res => dispatch(addMessage(user, res.data.fact) ))
-    .catch(err => console.log('[Axios]:cat', err));
+    .catch(err => console.error('[Axios]:cat', err));
   }
   
   useEffect(() => {
@@ -64,10 +68,10 @@ function App() {
         User3Service.requireInsult().then( res => {
           dispatch(addMessage(usersArray.USER3, res.data.text))
         }).catch(err => {
-          console.error('[Axios]: ', err);
+          console.error('[Axios]:InsultAPI ', err);
           callCatApi(usersArray.USER3);
         });
-      }, '5000');
+      }, '20000');
     }, []);
 
   return (
